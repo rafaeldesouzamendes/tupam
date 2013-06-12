@@ -2,8 +2,23 @@ package br.ufsc.tupam.planning.service;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public class SudokuBacktracking {
+
+	public class PossibilityComparator implements	 Comparator<List<Character>> {
+
+		@Override
+		public int compare(final List<Character> arg0, final List<Character> arg1) {
+			return arg0.size() - arg1.size();
+		}
+
+
+	}
 
 	private static int backtrackingNodes;
 
@@ -81,6 +96,93 @@ public class SudokuBacktracking {
 			else
 				--pos;
 		}
+	}
+
+	public static void backtrack2(final char[] board){
+		final List<Character>[] possibilities = SudokuBacktracking.computePossibilities(board);
+
+		//ordenar possibilidedades
+		final SortedMap<List<Character>, Integer> sortedPossibilities = new TreeMap<List<Character>, Integer>(new PossibilityComparator());
+		for(int i = 0; i < 81; ++i)
+			sortedPossibilities.put(possibilities[i], i);
+	}
+
+	private static List<Character>[] computePossibilities(final char[] board) {
+
+		@SuppressWarnings("unchecked")
+		final
+		List<Character>[] ret = new ArrayList[81];
+
+		for(int i = 0; i < 81; ++i){
+			ret[i] = SudokuBacktracking.computePossibilities(board,i);
+		}
+		return ret;
+	}
+
+	private static List<Character> computePossibilities(final char[] board, final int pos) {
+		final ArrayList<Character> ret = new ArrayList<Character>();
+
+		for(char k = 1; k <= 9; ++k)
+			ret.add(k);
+
+		final int col = pos % 9;
+
+		//check column
+		for(int i = col; i < 81; i+=9)
+			if(i != pos)
+				ret.remove(new Character(board[i]));
+
+		//check line
+		final int stt = pos - col;
+		final int stp = stt + 9;
+		for(int i = stt; i < stp; ++i)
+			ret.remove(new Character(board[i]));
+
+
+		//test block
+		final int bCol = pos % 3;
+		final int bStt = (pos % 27) - col; //a number equals 0, 9 or 18
+		final int bLin = bStt / 9; //a number between 0 and 2
+
+		int a = 0, b = 0;
+		int alfa = 0, beta = 0;
+
+		switch(bCol){
+		case 0:
+			a = 1;
+			b = 2;
+			break;
+		case 1:
+			a = -1;
+			b = 1;
+			break;
+		case 2:
+			a = -2;
+			b = -1;
+			break;
+		}
+
+		switch(bLin){
+		case 0:
+			alfa = 9;
+			beta = 18;
+			break;
+		case 1:
+			alfa = -9;
+			beta = 9;
+			break;
+		case 2:
+			alfa = -18;
+			beta = -9;
+			break;
+		}
+
+		ret.remove(new Character(board[pos + alfa + a]));
+		ret.remove(new Character(board[pos + alfa + b]));
+		ret.remove(new Character(board[pos + beta + a]));
+		ret.remove(new Character(board[pos + beta + b]));
+
+		return ret;
 	}
 
 	private static boolean test(final char[] board, final char k, final int pos) {
