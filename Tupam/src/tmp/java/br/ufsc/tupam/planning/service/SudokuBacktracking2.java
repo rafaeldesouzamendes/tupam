@@ -16,7 +16,7 @@ public class SudokuBacktracking2 {
 		for(int i = 1; i <= 11; ++i){
 			final char[] inputBoard = new char[81];
 
-			final String fileName = "E"+i;
+			final String fileName = "H"+i;
 			SudokuBacktracking2.readBoard(inputBoard, "/home/mendes/Documents/doc/disciplinas/AlgoritmosCombinatorios/a2data/a2data/" + fileName + ".txt");
 
 			long time = 0;

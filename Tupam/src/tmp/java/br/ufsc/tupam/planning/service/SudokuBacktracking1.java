@@ -12,7 +12,7 @@ public class SudokuBacktracking1 {
 		final char[] outputBoard = new char[81];
 
 		for(int i = 1; i <= 11; ++i){
-			final String fileName = "M"+i;
+			final String fileName = "H"+i;
 			SudokuBacktracking1.readBoard(outputBoard, "/home/mendes/Documents/doc/disciplinas/AlgoritmosCombinatorios/a2data/a2data/" + fileName + ".txt");
 
 			final char[] inputBoard = new char[81];
@@ -28,7 +28,7 @@ public class SudokuBacktracking1 {
 				SudokuBacktracking1.backtrack1(outputBoard);
 				time = System.currentTimeMillis() - startTime;
 
-				SudokuBacktracking1.printBoards(inputBoard,outputBoard);
+				//SudokuBacktracking1.printBoards(inputBoard,outputBoard);
 
 			}catch(final ArrayIndexOutOfBoundsException e){
 				SudokuBacktracking1.printNoOutput(inputBoard);
@@ -153,21 +153,6 @@ public class SudokuBacktracking1 {
 
 	private static int getPos(final int col, final int lin) {
 		return (lin * 9) + col;
-	}
-
-	private static void printBoards(final char[] inputBoard, final char[] outputBoard) {
-		System.out.println("Input            \tOutput");
-		for(int i = 0; i < 9; ++i){
-			for(int j = 0; j < 9; ++j)
-				System.out.print((char)('0' + inputBoard[SudokuBacktracking1.getPos(j,i)]) + " ");
-
-			System.out.print("\t");
-
-			for(int j = 0; j < 9; ++j)
-				System.out.print((char)('0' + outputBoard[SudokuBacktracking1.getPos(j,i)]) + " ");
-
-			System.out.println();
-		}
 	}
 
 	private static void printNoOutput(final char[] inputBoard) {
