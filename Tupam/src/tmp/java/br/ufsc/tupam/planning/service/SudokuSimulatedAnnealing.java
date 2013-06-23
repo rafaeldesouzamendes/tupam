@@ -12,7 +12,7 @@ public class SudokuSimulatedAnnealing {
 			final char[] inputBoard = new char[81];
 
 			final String fileName = "H"+i;
-			SudokuSimulatedAnnealing.readBoard(inputBoard, "/home/mendes/Documents/doc/disciplinas/AlgoritmosCombinatorios/a2data/a2data/" + fileName + ".txt");
+			//SudokuSimulatedAnnealing.readBoard(inputBoard, "/home/mendes/Documents/doc/disciplinas/AlgoritmosCombinatorios/a2data/a2data/" + fileName + ".txt");
 
 			long time = 0;
 			SudokuSimulatedAnnealing.backtrackingNodes = 0;
@@ -20,13 +20,13 @@ public class SudokuSimulatedAnnealing {
 			System.out.println(fileName);
 
 			char[] outputBoard;
-			outputBoard = SudokuSimulatedAnnealing.backtrack2(inputBoard);
+			//outputBoard = SudokuSimulatedAnnealing.backtrack2(inputBoard);
 			time = System.currentTimeMillis() - startTime;
 
-			if(outputBoard != null)
-				SudokuSimulatedAnnealing.printBoards(inputBoard,outputBoard);
-			else
-				SudokuSimulatedAnnealing.printNoOutput(inputBoard);
+			//if(outputBoard != null)
+				//SudokuSimulatedAnnealing.printBoards(inputBoard,outputBoard);
+			//else
+				//SudokuSimulatedAnnealing.printNoOutput(inputBoard);
 
 			time = System.currentTimeMillis() - startTime;
 
